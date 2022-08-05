@@ -1,7 +1,11 @@
+/**
+ * routes created for Users
+ */
+
 const express = require("express");
 //asyncHandler helper function
 const { asyncHandler } = require("../middleware/async-handler");
-//authntication user
+//authentication user
 const { authenticateUser } = require("../middleware/auth-user");
 //import Model
 const { User } = require("../models");
@@ -9,19 +13,17 @@ const { User } = require("../models");
 const router = express.Router();
 
 //get all users
-router.get(
-  "/",
-  authenticateUser,
-  asyncHandler(async (req, res) => {
+router.get('/', authenticateUser, asyncHandler(async (req, res) => {
     const user = req.currentUser;
+
     res.json({
-      id: user.id,
       firstName: user.firstName,
       lastName: user.lastName,
       emailAddress: user.emailAddress,
+      password: user.password
     });
-  })
-);
+    res.status(200); //Returns the currently authenticated user
+  }));
 
 //create new user
 router.post(
@@ -29,7 +31,7 @@ router.post(
   asyncHandler(async (req, res) => {
     try {
       await User.create(req.body);
-      res.status(201).location("/").end();
+      res.status(201).location("/").end(); // Creates a user, sets the Location header to "/", and returns no content
     } catch (error) {
       if (
         error.name === "SequelizeValidationError" ||

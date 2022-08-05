@@ -1,20 +1,24 @@
+/**
+ * Purpose: provide specifications on the course schema (title, description, estimatedTime, materialsNeeded,userID)
+ */
+
 'use strict';
 
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require(".");
 
-///Course Model
+///Course Model that is 1-1 association with user model
 
 module.exports = (sequelize) => {
   class Course extends Model {}
   Course.init(
     {
       title: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING, //datatype
         allowNull: false,
         validate: {
           notEmpty: {
-            msg: "Please provide a value for title",
+            msg: "Please enter a title",
           },
         },
       },
@@ -23,7 +27,7 @@ module.exports = (sequelize) => {
         allowNull: false,
         validate: {
           notEmpty: {
-            msg: "Please provide a value for description",
+            msg: "Please enter a description",
           },
         },
       },
@@ -37,9 +41,9 @@ module.exports = (sequelize) => {
     { sequelize }
   );
 
-  //Course association with modelse.User one to one
+  //1-1 association - created in the model associations with the foreignKey property
   Course.associate = (models) => {
-    Course.belongsTo(models.User, {
+    Course.belongsTo(models.User, { //A BelongsTo association is defined between the Course and User models
       as: "Student",
       foreignKey: {
         fieldName: "userId",
