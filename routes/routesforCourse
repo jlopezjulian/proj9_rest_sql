@@ -23,7 +23,7 @@ router.get(
       },
       include: {
         model: User,
-        as: "Student",
+        as: "person",
         attributes: {
           exclude: ["password", "createdAt", "updatedAt"],
         },
@@ -48,7 +48,7 @@ router.get(
       },
       include: {
         model: User,
-        as: "Student",
+        as: "person",
         attributes: {
           exclude: ["password", "createdAt", "updatedAt"],
         },

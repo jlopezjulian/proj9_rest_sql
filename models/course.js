@@ -44,7 +44,7 @@ module.exports = (sequelize) => {
   //1-1 association - created in the model associations with the foreignKey property
   Course.associate = (models) => {
     Course.belongsTo(models.User, { //A BelongsTo association is defined between the Course and User models
-      as: "Student",
+      as: "person",
       foreignKey: {
         fieldName: "userId",
         allowNull: false,
