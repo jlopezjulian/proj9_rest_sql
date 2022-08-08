@@ -2,7 +2,6 @@
  *Routes are created for the Courses
  */
 
-const { csonParser } = require("config/parser");
 const express = require("express");
 
 //asyncHandler helper function
@@ -84,7 +83,7 @@ router.post("/", authenticateUser, asyncHandler(async (req, res) => {
 );
 
 //update course ---still working on this...
-router.put("/courses/:id", authenticateUser, asyncHandler(async (req, res) => {
+router.put("/:id", authenticateUser, asyncHandler(async (req, res) => {
     try {
       const course = await Course.findByPk(req.params.id);
       if (req.currentUser.id === course.userId) {
