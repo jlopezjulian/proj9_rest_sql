@@ -2,14 +2,12 @@
  * set datatypes for the user model
  */
 
-'use strict' //restricted "strict" variant of js
-
 
 const bcrypt = require("bcryptjs/dist/bcrypt");
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require(".");
 
-///User Model
+//User Model
 
 module.exports = (sequelize) => {
   class User extends Model {}
@@ -37,7 +35,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
         unique: {
-          msg: "The email you entered already exist in our database",
+          msg: "The email you entered already exists in our database",
         },
         validate: {
           notNull: {
@@ -65,9 +63,10 @@ module.exports = (sequelize) => {
     { sequelize }
   );
 
+
   User.associate = (models) => {
     User.hasMany(models.Course, { //A HasMany association is defined between the User and Course models
-      as: "person",
+      as: "Student",
       foreignKey: {
         fieldName: "userId",
         allowNull: false,

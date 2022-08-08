@@ -14,31 +14,27 @@ const { User, Course } = require("../models");
 const router = express.Router();
 
 //get all courses
-router.get(
-  "/",
-  asyncHandler(async (req, res) => {
+router.get("/", asyncHandler(async (req, res) => {
     const courses = await Course.findAll({
       attributes: {
         exclude: ["createdAt", "updatedAt"],
       },
       include: {
         model: User,
-        as: "person",
+        as: "Student",
         attributes: {
           exclude: ["password", "createdAt", "updatedAt"],
         },
       },
     });
-    res.status(200).json({//Returns a list of courses (including the user that owns each course)
+    res.status(200).json({ //Returns a list of courses (including the user that owns each course)
       courses,
     });
   })
 );
 
-//get specified course
-router.get(
-  "/:id",
-  asyncHandler(async (req, res) => {
+//get specific course
+router.get("/:id", asyncHandler(async (req, res) => {
     const course = await Course.findOne({
       where: {
         id: req.params.id,
@@ -48,23 +44,20 @@ router.get(
       },
       include: {
         model: User,
-        as: "person",
+        as: "Student",
         attributes: {
           exclude: ["password", "createdAt", "updatedAt"],
         },
       },
     });
-    res.status(200).json({//Returns the course (including the user that owns the course) for the provided course ID
+    res.status(200).json({ //Returns the course (including the user that owns the course) for the provided course ID
       course,
     });
   })
 );
 
 //create new course
-router.post(
-  "/",
-  authenticateUser,
-  asyncHandler(async (req, res) => {
+router.post("/", authenticateUser, asyncHandler(async (req, res) => {
     try {
       const course = await Course.create({
         title: req.body.title,
@@ -89,11 +82,8 @@ router.post(
   })
 );
 
-//update exit course
-router.put(
-  "/:id",
-  authenticateUser,
-  asyncHandler(async (req, res) => {
+//update course
+router.put("/course/:id", authenticateUser, asyncHandler(async (req, res) => {
     try {
       const course = await Course.findByPk(req.params.id);
       if (req.currentUser.id === course.userId) {
@@ -102,7 +92,7 @@ router.put(
       } else {
         res
           .status(403)
-          .json({ error: "You cannot update course that you dont owned" });
+          .json({ error: "You cannot update the course." });
       }
     } catch (error) {
       console.log("ERROR: ", error);
@@ -119,11 +109,8 @@ router.put(
   })
 );
 
-//remove exist course
-router.delete(
-  "/:id",
-  authenticateUser,
-  asyncHandler(async (req, res) => {
+//remove course
+router.delete("/:id", authenticateUser, asyncHandler(async (req, res) => {
     try {
       const course = await Course.findByPk(req.params.id);
       if (req.currentUser.id === course.userId) {
@@ -132,7 +119,7 @@ router.delete(
       } else {
         res
           .status(403)
-          .json({ error: "Delete cannot be done" });
+          .json({ error: "Deletion cannot be done" });
       }
     } catch (error) {
       console.log("ERROR: ", error);

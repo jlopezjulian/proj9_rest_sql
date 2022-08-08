@@ -7,7 +7,7 @@
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require(".");
 
-///Course Model that is 1-1 association with user model
+//Course Model that is 1-1 association with user model
 
 module.exports = (sequelize) => {
   class Course extends Model {}
@@ -41,10 +41,10 @@ module.exports = (sequelize) => {
     { sequelize }
   );
 
-  //1-1 association - created in the model associations with the foreignKey property
+ //1-1 association - created in the model associations with the foreignKey property
   Course.associate = (models) => {
-    Course.belongsTo(models.User, { //A BelongsTo association is defined between the Course and User models
-      as: "person",
+    Course.belongsTo(models.User, { ////A BelongsTo association is defined between the Course and User models
+      as: "Student",
       foreignKey: {
         fieldName: "userId",
         allowNull: false,
