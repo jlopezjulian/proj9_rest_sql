@@ -21,7 +21,7 @@ app.use(express.json());
 // setup morgan which gives us http request logging
 app.use(morgan("dev"));
 
-//setup routes{userRoutes} for /api/user {courseRoutes} for /api/course
+//setup routes{routesForCourse} for /api/course {routesForUser} for /api/user
 app.use("/api/courses", courseRoutes);
 app.use("/api/users", userRoutes);
 
