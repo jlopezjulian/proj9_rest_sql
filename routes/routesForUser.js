@@ -13,10 +13,7 @@
  const router = express.Router();
 
  //get all users
- router.get(
-   "/",
-   authenticateUser,
-   asyncHandler(async (req, res) => {
+ router.get("/", authenticateUser, asyncHandler(async (req, res) => {
      const user = req.currentUser;
      res.json({
        id: user.id,
@@ -28,9 +25,7 @@
  );
 
  //create new user
- router.post(
-   "/",
-   asyncHandler(async (req, res) => {
+ router.post("/", asyncHandler(async (req, res) => {
      try {
        await User.create(req.body);
        res.status(201).location("/").end();

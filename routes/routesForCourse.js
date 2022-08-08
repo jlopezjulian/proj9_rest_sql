@@ -82,7 +82,7 @@ router.post("/", authenticateUser, asyncHandler(async (req, res) => {
   })
 );
 
-//update course
+//update course ---still working on this...
 router.put("/course/:id", authenticateUser, asyncHandler(async (req, res) => {
     try {
       const course = await Course.findByPk(req.params.id);
