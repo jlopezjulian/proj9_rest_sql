@@ -2,7 +2,7 @@
  *Routes are created for the Courses
  */
 
-const express = require("express");
+ const express = require("express");
 
 //asyncHandler helper function
 const { asyncHandler } = require("../middleware/async-handler");
@@ -87,10 +87,9 @@ router.put("/:id", authenticateUser, asyncHandler(async (req, res) => {
     try {
       const course = await Course.findByPk(req.params.id);
       if (req.currentUser.id === course.userId) {
-        console.log("xyz")
         await course.update(req.body);
-        res.status(204).location(`/${req.params.id}`).end(); //Updates a course and returns no content
-      } else {
+        res.status(204).end(); //Updates a course and returns no content
+      } else { //location header removed according to feedback ---> location(`/${req.params.id}`)
         res
           .status(403)
           .json({ error: "You cannot update the course." });
@@ -116,7 +115,7 @@ router.delete("/:id", authenticateUser, asyncHandler(async (req, res) => {
       const course = await Course.findByPk(req.params.id);
       if (req.currentUser.id === course.userId) {
         await course.destroy();
-        res.status(204).location("/").end();//Deletes a course and returns no content
+        res.status(204).end();//Deletes a course and returns no content & removed the location header since its not needed here
       } else {
         res
           .status(403)

@@ -2,7 +2,7 @@
  * Purpose: provide specifications on the course schema (title, description, estimatedTime, materialsNeeded,userID)
  */
 
-'use strict';
+ 'use strict';
 
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require(".");
