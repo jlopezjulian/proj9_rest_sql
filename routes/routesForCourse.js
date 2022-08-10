@@ -66,7 +66,7 @@ router.post("/", authenticateUser, asyncHandler(async (req, res) => {
         materialsNeeded: req.body.materialsNeeded,
         userId: req.currentUser.id,
       });
-      res.status(201).location(`/${course.id}`).end();//Creates a course, sets the Location header to the URI for the course, and returns no content
+      res.status(201).location(`/courses/${course.id}`).end();//Creates a course, sets the Location header to the URI for the course, and returns no content
     } catch (error) {
       console.log("ERROR: ", error);
       if (
